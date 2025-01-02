@@ -26,17 +26,16 @@ today_string = current_time_ist.strftime('%Y_%m_%d')
 # Following credential has to come using secret whie running in automated way
 def snowpark_basic_auth() -> Session:
     connection_parameters = {
-       "ACCOUNT":"DOKKIEX.FP39229",
-       "region":"us-west-2",
-        "USER":"BHARATHIPAGADALA2001",
-        "PASSWORD":"Bharathi@20011",
-        "ROLE":"ACCOUNTADMIN",
-        "DATABASE":"dev_db",
-        "SCHEMA":"LOAD_SH",
-        "WAREHOUSE":"load_wh"
-    } 
-    # creating snowflake session object
+        "ACCOUNT": "dokkiex-fp39229",
+        "USER": "BHARATHIPAGADALA2001",
+        "PASSWORD": "Bharathi@20011",
+        "ROLE": "ACCOUNTADMIN",
+        "DATABASE": "dev_db",
+        "SCHEMA": "LOAD_SH",
+        "WAREHOUSE": "load_wh"
+    }
     return Session.builder.configs(connection_parameters).create()
+
 
 
 def get_air_quality_data(api_key, limit):
@@ -74,7 +73,7 @@ def get_air_quality_data(api_key, limit):
 
             logging.info(f'File Written to local disk with name: {file_name}')
             
-            stg_location = '@DEV_DB.LOAD_SH.RAW_STAGE/'+today_string+'/'
+            stg_location = '@DEV_DB.LOAD_SH.INT_STAGE/'+today_string+'/'
             sf_session = snowpark_basic_auth()
             
             logging.info(f'Placing the file, the file name is {file_name} and stage location is {stg_location}')
@@ -107,7 +106,7 @@ def get_air_quality_data(api_key, limit):
     return None
 
 # Replace 'YOUR_API_KEY' with your actual API key
-api_key = '579b464db66ec23bdd000001aa31a5b8c0554eb96864f2ac2ffaf508'
+api_key = '579b464db66ec23bdd000001c77b0e657a194d0778b712af88f0da8c'
 
 
 limit_value = 4000
